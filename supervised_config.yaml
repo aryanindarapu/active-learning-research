@@ -1,0 +1,19 @@
+# learning parameters
+lr: 1e-2
+batch_size: 4
+n_epochs: 100
+milestones: []
+
+# experiment and logging info
+images_path: 'ImageData'
+gt_path: 'Annotations-GT'
+seeds: [1, 2, 3, 4, 5]
+# Almond at Washington North, Almond at Washington East, Buffalo Grove at Deerfield North, Deerfield at Saunders South, Delany at Sunset North, 
+views: ['Delany at Sunset North']
+recon_loss: 'bce'
+n_train: 5
+input_shape: [240, 360]
+output_shape: [240, 360]
+crop_size: None
+log_path: 'supervised_single_view_5'
+tag: 'Delany at Sunset North'
