@@ -48,7 +48,7 @@ class ActiveLearning:
     '''Returns the indices of self.remaining_indices that have the highest uncertainty.'''
     uncertains = np.array([], dtype='int32')
 
-    device = 'mps' if torch.backends.mps.is_built() else 'cpu'
+    device = 'mps' if torch.backends.mps.is_built() else 'cuda:0' if torch.cuda.is_available() else 'cpu'
     # test model and get images
     with torch.no_grad():
       for n in self.remaining_indices:
@@ -76,14 +76,14 @@ class ActiveLearning:
     return self.model_accuracies
 
   def evaluate_model(self):
-    device = 'mps' if torch.backends.mps.is_built() else 'cpu'
+    device = 'mps' if torch.backends.mps.is_built() else 'cuda:0' if torch.cuda.is_available() else 'cpu'
     thresholds = [0.5] # only checking one foreground probability threshold
     test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.test_dataset, self.model, thresholds, device, self.test_dataset)
     return test_precision[0], test_recall[0], test_f_measure[0], test_blob_recall[0]
 
   def run_loop(self, step_size):
     print("running loop")
-    device = 'mps' if torch.backends.mps.is_built() else 'cpu'
+    device = 'mps' if torch.backends.mps.is_built() else 'cuda:0' if torch.cuda.is_available() else 'cpu'
 
     # training loop with acquisition function
     for curr_loop in range(self.n_init, len(self.train_dataset), step_size):
