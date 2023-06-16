@@ -2,9 +2,10 @@ import numpy as np
 from dataset import *
 from supervised_train import *
 import torch
+from matplotlib import pyplot as plt
 
 class ActiveLearning:
-  def __init__(self, model, n_init, n_train_per_view, n_val_per_view, datasets, config):
+  def __init__(self, model, n_init, n_train_per_view, datasets, config):
     self.model_accuracies = []
     self.n_init = n_init
     self.config = config
@@ -14,21 +15,17 @@ class ActiveLearning:
     training_datasets, validation_datasets, testing_datasets = [], [], []
 
     for d in datasets:
-      curr_train_indices = np.random.choice(np.arange(len(d)), size=n_train_per_view, replace=False)
-      val_segment = len(curr_train_indices) - n_val_per_view
-
-      train_indices, val_indices = curr_train_indices[:val_segment], curr_train_indices[val_segment:]
-      test_indices = np.array([i for i in range(len(d)) if i not in curr_train_indices])
+      train_indices = np.random.choice(np.arange(len(d)), size=n_train_per_view, replace=False)
+      val_indices = np.array([i for i in range(len(d)) if i not in train_indices])
 
       training_datasets.append((d, train_indices))
       validation_datasets.append((d, val_indices))
-      testing_datasets.append((d, test_indices))
 
     self.train_dataset = BFSConcatDataset(training_datasets) # full training dataset, i.e. every image that the model will end up training
     self.val_dataset = BFSConcatDataset(validation_datasets) # full validation dataset; should stay the same throughout training process
-    self.test_dataset = BFSConcatDataset(testing_datasets)   # full testing dataset; should stay the same throughout active learning process
 
-    all_train_indices = np.arange(len(self.train_dataset))
+    all_train_indices = np.arange(len(self.train_dataset)) # can't use train_indices because it's per view
+    
     np.random.shuffle(all_train_indices)
     self.train_indices = all_train_indices[:n_init]
     self.remaining_indices = all_train_indices[n_init:]
@@ -68,6 +65,11 @@ class ActiveLearning:
 
 
   def basic_loss(self, tensor):
+    uncertain_tensor = np.logical_and(tensor > 0.3, tensor < 0.7)
+    uncertain_image = uncertain_tensor.detach().cpu().numpy()
+    plt.imsave(uncertain_image)
+    # print(uncertain_tensor)
+    
     return np.count_nonzero(np.logical_and(tensor > 0.3, tensor < 0.7))
 
   # def nll_loss(self, tensor):
@@ -78,7 +80,7 @@ class ActiveLearning:
   def evaluate_model(self):
     device = 'mps' if torch.backends.mps.is_built() else 'cuda:0' if torch.cuda.is_available() else 'cpu'
     thresholds = [0.5] # only checking one foreground probability threshold
-    test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.test_dataset, self.model, thresholds, device, self.test_dataset)
+    test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.val_dataset, self.model, thresholds, device)
     return test_precision[0], test_recall[0], test_f_measure[0], test_blob_recall[0]
 
   def run_loop(self, step_size):
