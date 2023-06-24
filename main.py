@@ -1,6 +1,3 @@
-import os
-os.chdir("/Users/aryanindarapu/Repos/projects/u_net_baseline/")
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -50,6 +47,6 @@ for v in views:
                                          config['output_shape']))
     
 from active_learning import *
-act = ActiveLearning(model=model, n_init=20, n_train_per_view=40, n_val_per_view=10, datasets=datasets, config=config)
+act = ActiveLearning(model=model, n_init=20, n_train_per_view=40, datasets=datasets, config=config)
 
 accuracies = act.run_loop(5)

@@ -37,7 +37,7 @@ def train(model, train_dataset, val_dataset, config, full_dataset):
     else:
         crop_size = None
 
-    device = 'mps' if torch.backends.mps.is_built() else 'cuda:0' if torch.cuda.is_available() else 'cpu'
+    device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
     model = model.to(device)
     optimizer = optim.SGD(model.parameters(), lr=lr, momentum=0.9, weight_decay=1e-4)
     milestones = [int(n_epochs*m) for m in config['milestones']]
@@ -60,7 +60,7 @@ def train(model, train_dataset, val_dataset, config, full_dataset):
             images, targets = images.to(device), targets.to(device)
             n_images += images.size(0)
             preds = model(images)
-            loss = recon_criterion(preds, targets) 
+            loss = recon_criterion(preds, targets)
             train_total += loss.item()
             loss.backward()
             optimizer.step()

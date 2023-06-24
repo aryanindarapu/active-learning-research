@@ -12,10 +12,10 @@ from skimage.io import imread
 from tqdm import tqdm
 from copy import deepcopy
 
-def model_metrics(dataset, model, thresholds, device): 
+def model_metrics(dataset, model, thresholds, device, full_dataset): 
     # iterate through valid indices in dataset to assemble gt-prediction pairs
     gt_targets = np.array([deepcopy(dataset[i][1].squeeze(0)).numpy() for i in range(len(dataset))])
-    blob_targets = [dataset.get_blobs(gt) for gt in gt_targets]
+    blob_targets = [full_dataset.get_blobs(gt) for gt in gt_targets]
     predictions = []
     
     with torch.no_grad():
