@@ -44,6 +44,7 @@ class ActiveLearning:
   
   def acquisition(self):
     '''Returns the indices of self.remaining_indices that have the highest uncertainty.'''
+    print("new acquisition version")
     uncertains = np.array([], dtype='int32')
 
     device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
@@ -54,8 +55,9 @@ class ActiveLearning:
         # image_numpy = image.permute(1, 2, 0).numpy()
         image_tensor = image.unsqueeze(0).to(device)
         prediction_tensor = self.model(image_tensor)
-        loss = self.basic_loss(prediction_tensor)
+        test_tensor = prediction_tensor.cpu().data.numpy()[0, 0, :, :]
         
+        loss = self.basic_loss(test_tensor)
         uncertains = np.append(uncertains, loss)
         
     print("Uncertains: ", uncertains)
@@ -65,13 +67,10 @@ class ActiveLearning:
     return new_training_indices
 
 
-  def basic_loss(self, prediction_tensor):
-    uncertain_image = prediction_tensor.cpu().data.numpy()
-    plt.imsave(f"./uncertainty_images/{self.filename}.png", uncertain_image) 
-    tensor = uncertain_image[0, 0, :, :]
-    
-    uncertain_tensor = np.logical_and(tensor > 0.3, tensor < 0.7)    
-    
+  def basic_loss(self, tensor):
+    print("new loss")
+    uncertain_tensor = np.logical_and(tensor > 0.3, tensor < 0.7)
+    plt.imsave(f"./uncertainty_images/{self.filename}.png", uncertain_tensor) 
     self.filename += 1
 
     return np.count_nonzero(uncertain_tensor)
