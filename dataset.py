@@ -60,8 +60,9 @@ class BFSEvaluationDataset(Dataset):
         return len(self.file_paths)
 
     def __getitem__(self, idx): 
-        file_path = self.file_paths[idx]
         return self.images[idx], torch.from_numpy(self.targets[idx]).unsqueeze(0).float()
+    
+    # def getFilePath(self, idx): return self.file_paths[idx]
 
 class BFSConcatDataset(Dataset):
     def __init__(self, datasets):

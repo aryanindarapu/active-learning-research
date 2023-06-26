@@ -44,18 +44,20 @@ class ActiveLearning:
   
   def acquisition(self):
     '''Returns the indices of self.remaining_indices that have the highest uncertainty.'''
-    print("new acquisition version")
     uncertains = np.array([], dtype='int32')
-
+    
+    self.filename = 0
     device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
     # test model and get images
     with torch.no_grad():
       for n in self.remaining_indices:
         image, gt = self.train_dataset[n]
-        # image_numpy = image.permute(1, 2, 0).numpy()
         image_tensor = image.unsqueeze(0).to(device)
         prediction_tensor = self.model(image_tensor)
         test_tensor = prediction_tensor.cpu().data.numpy()[0, 0, :, :]
+        
+        plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_gt.png", gt.squeeze(0).numpy())
+        plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_original.png", image.permute(1, 2, 0).numpy()) 
         
         loss = self.basic_loss(test_tensor)
         uncertains = np.append(uncertains, loss)
@@ -66,11 +68,10 @@ class ActiveLearning:
     
     return new_training_indices
 
-
   def basic_loss(self, tensor):
-    print("new loss")
+    # print("new loss")
     uncertain_tensor = np.logical_and(tensor > 0.3, tensor < 0.7)
-    plt.imsave(f"./uncertainty_images/{self.filename}.png", uncertain_tensor) 
+    plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}.png", uncertain_tensor) 
     self.filename += 1
 
     return np.count_nonzero(uncertain_tensor)
@@ -89,7 +90,7 @@ class ActiveLearning:
   def run_loop(self, step_size):
     print("running loop")
     # device = 'mps' if torch.backends.mps.is_built() else 'cuda:0' if torch.cuda.is_available() else 'cpu'
-
+    
     # training loop with acquisition function
     for curr_loop in range(self.n_init, len(self.train_dataset), step_size):
       # get current accuracy, recall, and other metrics
@@ -99,7 +100,7 @@ class ActiveLearning:
       print('')
 
       self.model_accuracies.append((curr_loop, (p, r, f, b)))
-
+      self.current_pass = curr_loop
       # run acquisition function
       new_training_indices = self.acquisition()
     
@@ -108,7 +109,7 @@ class ActiveLearning:
       self.remaining_indices = np.delete(self.remaining_indices, new_training_indices)      
 
       self.model, self.stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
-      break
+      # break
       
     p, r, f, b = self.evaluate_model()
     print(f'Metrics with {curr_loop} training images')
