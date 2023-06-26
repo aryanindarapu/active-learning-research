@@ -3,15 +3,22 @@ from dataset import *
 from supervised_train import *
 import torch
 from matplotlib import pyplot as plt
+import logging
 
 class ActiveLearning:
-  def __init__(self, model, n_init, n_train_per_view, datasets, config):
+  def __init__(self, model, n_init, n_train_per_view, datasets, config, logname):
     self.model_accuracies = []
     self.n_init = n_init
     self.config = config
     self.datasets = datasets
     self.model = model
     self.filename = 0
+    
+    logging.basicConfig(filename=logname,
+                        filemode='a',
+                        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                        datefmt='%H:%M:%S',
+                        level=logging.DEBUG)
 
     training_datasets, validation_datasets = [], []
 
@@ -42,7 +49,7 @@ class ActiveLearning:
 
     return dataset
   
-  def acquisition(self):
+  def acquisition(self, num_new_imgs):
     '''Returns the indices of self.remaining_indices that have the highest uncertainty.'''
     uncertains = np.array([], dtype='int32')
     
@@ -56,25 +63,47 @@ class ActiveLearning:
         prediction_tensor = self.model(image_tensor)
         test_tensor = prediction_tensor.cpu().data.numpy()[0, 0, :, :]
         
-        plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_gt.png", gt.squeeze(0).numpy())
-        plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_original.png", image.permute(1, 2, 0).numpy()) 
+        # plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_gt.png", gt.squeeze(0).numpy())
+        # plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_original.png", image.permute(1, 2, 0).numpy()) 
         
-        loss = self.basic_loss(test_tensor)
+        # loss = self.basic_loss(test_tensor)
+        loss = self.basic_loss_extra(test_tensor)
+        
         uncertains = np.append(uncertains, loss)
         
+    # print("Uncertains: ", uncertains)
     print("Uncertains: ", uncertains)
-    new_training_indices = np.argpartition(uncertains, -5)[-5:] # indices of remaining indices with highest uncertainty rates
-    print("Chosen uncertainties: ", new_training_indices)
+    new_training_indices = np.argpartition(uncertains, -num_new_imgs)[-num_new_imgs:] # indices of remaining indices with highest uncertainty rates
+    # print("Chosen uncertainties: ", new_training_indices)
+    print("Chosen uncertanties: ", new_training_indices)
     
     return new_training_indices
 
   def basic_loss(self, tensor):
-    # print("new loss")
     uncertain_tensor = np.logical_and(tensor > 0.3, tensor < 0.7)
-    plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}.png", uncertain_tensor) 
+    # plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}.png", uncertain_tensor) 
     self.filename += 1
 
     return np.count_nonzero(uncertain_tensor)
+  
+  def basic_loss_extra(self, tensor):
+    uncertain_tensor = np.logical_and(tensor > 0.3, tensor < 0.7) # uncertainty binary image
+    # for every uncertain pixel (i.e. uncertain_tensor == 1), sum number of uncertain pixels 3 units away in every direction 
+    updated_tensor = np.zeros_like(uncertain_tensor)
+    uncertain_idx_list = zip(*uncertain_tensor.nonzero())
+    
+    for pair in uncertain_idx_list:
+      image_size_width = len(uncertain_tensor[0])
+      image_size_height = len(uncertain_tensor)
+      
+      topBorder, botBorder = 0 if pair[0]-3 < 0 else pair[0]-3, image_size_height if pair[0]+3 > image_size_height-1 else pair[0]+4
+      leftBorder, rightBorder = 0 if pair[1]-3 < 0 else pair[1]-3, image_size_width if pair[1]+3 > image_size_width-1 else pair[1]+4
+      
+      updated_tensor[pair[0], pair[1]] = np.count_nonzero(uncertain_tensor[topBorder:botBorder, leftBorder:rightBorder])
+      # print(test[topBorder:botBorder, leftBorder:rightBorder])
+    # self.filename += 1
+    # print(updated_tensor)
+    return np.count_nonzero(updated_tensor)
 
   # def nll_loss(self, tensor):
 
@@ -98,11 +127,15 @@ class ActiveLearning:
       print(f'Metrics with {curr_loop} training images')
       print('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
       print('')
+      
+      logging.debug(f'Metrics with {curr_loop} training images')
+      logging.debug('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
+      logging.debug('')
 
       self.model_accuracies.append((curr_loop, (p, r, f, b)))
       self.current_pass = curr_loop
       # run acquisition function
-      new_training_indices = self.acquisition()
+      new_training_indices = self.acquisition(step_size)
     
       # add new images to dataset and retrain
       self.train_indices = np.append(self.train_indices, self.remaining_indices[new_training_indices])
@@ -115,5 +148,9 @@ class ActiveLearning:
     print(f'Metrics with {curr_loop} training images')
     print('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
     print('')
+    
+    logging.debug(f'Metrics with {curr_loop} training images')
+    logging.debug('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
+    logging.debug('')
     
     self.model_accuracies.append((curr_loop, (p, r, f, b)))
