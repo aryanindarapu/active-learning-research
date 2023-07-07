@@ -60,8 +60,11 @@ for v in views:
     
 from active_learning import *
 
-act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, logname="basicLoss.log")
+act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, log_type="baseline")
 accuracies = act.run_loop(10)
 
-act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, logname="groupLoss.log")
+act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, log_type="basicLoss")
+accuracies = act.run_loop(10)
+
+act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, log_type="basicLossExtra")
 accuracies = act.run_loop(10)

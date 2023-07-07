@@ -6,15 +6,16 @@ from matplotlib import pyplot as plt
 import logging
 
 class ActiveLearning:
-  def __init__(self, model, n_init, n_train_per_view, datasets, config, logname):
+  def __init__(self, model, n_init, n_train_per_view, datasets, config, loss_type):
     self.model_accuracies = []
     self.n_init = n_init
     self.config = config
     self.datasets = datasets
     self.model = model
     self.filename = 0
+    self.lossType = loss_type
     
-    logging.basicConfig(filename=logname,
+    logging.basicConfig(filename=f"{loss_type}.log",
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
@@ -55,6 +56,7 @@ class ActiveLearning:
     
     self.filename = 0
     device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+    
     # test model and get images
     with torch.no_grad():
       for n in self.remaining_indices:
@@ -66,11 +68,16 @@ class ActiveLearning:
         # plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_gt.png", gt.squeeze(0).numpy())
         # plt.imsave(f"./uncertainty_images/{self.current_pass}_{self.filename}_original.png", image.permute(1, 2, 0).numpy()) 
         
-        # loss = self.basic_loss(test_tensor)
-        loss = self.basic_loss_extra(test_tensor)
-        
+        if self.lossType == "basicLoss":
+          loss = self.basic_loss(test_tensor)
+        elif self.lossType == "basicLossExtra":
+          loss = self.basic_loss_extra(test_tensor)
+        else:
+          # randomly select pixels to be uncertain
+          return np.random.choice(self.remaining_indices, num_new_imgs, replace=False)
+
         uncertains = np.append(uncertains, loss)
-        
+
     # print("Uncertains: ", uncertains)
     print("Uncertains: ", uncertains)
     new_training_indices = np.argpartition(uncertains, -num_new_imgs)[-num_new_imgs:] # indices of remaining indices with highest uncertainty rates
@@ -101,6 +108,7 @@ class ActiveLearning:
       
       updated_tensor[pair[0], pair[1]] = np.count_nonzero(uncertain_tensor[topBorder:botBorder, leftBorder:rightBorder])
       # print(test[topBorder:botBorder, leftBorder:rightBorder])
+      
     # self.filename += 1
     # print(updated_tensor)
     return np.count_nonzero(updated_tensor)
