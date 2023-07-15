@@ -24,6 +24,7 @@ class BFSEvaluationDataset(Dataset):
                 for date in os.listdir(view_path):
                     date_path = os.path.join(view_path, date)
                     initial_file_paths += [os.path.join(v, date, n) for n in os.listdir(date_path)]
+
         # load images and targets
         self.file_paths = []
         self.images, self.targets = [], []

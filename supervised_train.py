@@ -45,7 +45,10 @@ def train(model, train_dataset, val_dataset, config, full_dataset):
  
     train_losses, train_precisions, train_recalls, train_f_measures, train_blob_recalls = [], [], [], [], []
     val_precisions, val_recalls, val_f_measures, val_blob_recalls = [], [], [], []
+    
+    epochs = []
     for epoch in tqdm(range(n_epochs)):
+        epochs.append(epoch)
         train_total = 0
         n_images = 0
         model.train()
@@ -93,6 +96,7 @@ def train(model, train_dataset, val_dataset, config, full_dataset):
     stat_dict['Validation']['Recall'] = val_recalls
     stat_dict['Validation']['F-measure'] = val_f_measures
     stat_dict['Validation']['Blob recall'] = val_blob_recalls
+    stat_dict['Epochs'] = epochs
     return model, stat_dict
 
 if __name__ == '__main__':

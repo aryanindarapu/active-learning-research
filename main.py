@@ -18,27 +18,16 @@ config = {
   # fraction of training epochs to lower learning rate by 1/10, e.g. [0.6, 0.8]
   # lowers learning rate at epochs 120 and 160 if we have 200 training epochs
   'milestones': [0.8],
-  'views': ['Almond at Washington North', 'Almond at Washington East'], # list of views for training  'Almond at Washington East'
+  'views': ['Almond at Washington North', 'Almond at Washington East', 'Almond at Washington South', 'Almond at Washington West'], # list of views for training  'Almond at Washington East'
   'images_path': 'Annotations-Images', # path to RGB images
   'gt_path': 'Annotations-GT', # path to ground-truth segmentation masks
-  'log_path': 'x' # path to directory you make for saving results
+  'log_path': 'logs' # path to directory you make for saving results
 }
 
-# set up model
-n_channels = 3 # RGB images
-model = UNet(n_channels)
-
-# set up datasets
-seed = config['seed']
-np.random.seed(seed) 
-views = config['views']
-logging_path = config['log_path']
-if not os.path.exists(logging_path):
-    os.mkdir(logging_path)
-
-# set up model
-n_channels = 3 # RGB images
-model = UNet(n_channels)
+# use buffalo grove as test dataset
+# 20 total vs 20 per view vs 80 total
+# start at really low inital point
+# num images per camera view
 
 # set up datasets
 seed = config['seed']
@@ -59,12 +48,18 @@ for v in views:
                                          config['output_shape']))
     
 from active_learning import *
+n_epochs = [50, 100, 150, 200, 250, 300, 350, 400]
 
-act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, log_type="baseline")
-accuracies = act.run_loop(10)
+for n in n_epochs:
+  # set up model
+  n_channels = 3 # RGB images
+  model = UNet(n_channels)
+  
+  config['n_epochs'] = n
+  act = ActiveLearning(model=model, n_init_per_view=20, n_train_per_view=40, datasets=datasets, config=config, loss_type="basicLoss")
+  accuracies = act.run_loop(10)
+  act.visualize_losses()
 
-act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, log_type="basicLoss")
-accuracies = act.run_loop(10)
-
-act = ActiveLearning(model=model, n_init=20 * len(config['views']), n_train_per_view=40, datasets=datasets, config=config, log_type="basicLossExtra")
-accuracies = act.run_loop(10)
+# act2 = ActiveLearning(model=model, n_init=20, n_train_per_view=40, datasets=datasets, config=config, loss_type="basicLossExtra")
+# accuracies = act2.run_loop(10)
+# act2.visualize_losses()

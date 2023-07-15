@@ -1,5 +1,10 @@
 import numpy as np
 
+temp = [1, 5, 2, 5, 2, 1, 2,3 ,6 ,8 , 7, 2, 3]
+
+print(np.random.choice(temp, 4, replace=False))
+
+quit()
 test = np.array([[1, 0, 1], [0, 0, 0], [0, 1, 1]])
 
 print(test)

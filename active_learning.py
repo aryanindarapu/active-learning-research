@@ -6,16 +6,19 @@ from matplotlib import pyplot as plt
 import logging
 
 class ActiveLearning:
-  def __init__(self, model, n_init, n_train_per_view, datasets, config, loss_type):
+  def __init__(self, model, n_init_per_view, n_train_per_view, datasets, config, loss_type):
     self.model_accuracies = []
-    self.n_init = n_init
+    self.n_init = n_init_per_view * len(config['views'])
     self.config = config
     self.datasets = datasets
     self.model = model
     self.filename = 0
     self.lossType = loss_type
     
-    logging.basicConfig(filename=f"{loss_type}.log",
+    self.training_losses = {}
+    self.validation_losses = {}
+    
+    logging.basicConfig(filename=f"{config['log_path']}/{loss_type}.log",
                         filemode='a',
                         format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                         datefmt='%H:%M:%S',
@@ -36,11 +39,19 @@ class ActiveLearning:
     all_train_indices = np.arange(len(self.train_dataset)) # can't use train_indices because it's per view
     
     np.random.shuffle(all_train_indices)
-    self.train_indices = all_train_indices[:n_init]
-    self.remaining_indices = all_train_indices[n_init:]
+    self.train_indices = all_train_indices[:self.n_init]
+    self.remaining_indices = all_train_indices[self.n_init:]
 
     # train with first n_init images
-    self.model, self.stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
+    self.model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
+    
+    # get current accuracy, recall, and other metrics
+    self.evaluate_model(self.n_init)
+    
+    self.training_losses[self.n_init] = stat_dict['Training']['F-measure']
+    self.validation_losses[self.n_init] = stat_dict['Validation']['F-measure']
+    # print(self.validation_losses)
+    self.epochs = stat_dict['Epochs']
 
   def train_dataset_preprocess(self):
     '''Trims the full training dataset to just the indices in self.train_indices.'''
@@ -48,10 +59,10 @@ class ActiveLearning:
     for i in self.train_indices:
       dataset.append(self.train_dataset[i])
 
-    return dataset
+    return dataset 
   
   def acquisition(self, num_new_imgs):
-    '''Returns the indices of self.remaining_indices that have the highest uncertainty.'''
+    '''Returns the *indices* of self.remaining_indices that have the highest uncertainty.'''
     uncertains = np.array([], dtype='int32')
     
     self.filename = 0
@@ -74,7 +85,7 @@ class ActiveLearning:
           loss = self.basic_loss_extra(test_tensor)
         else:
           # randomly select pixels to be uncertain
-          return np.random.choice(self.remaining_indices, num_new_imgs, replace=False)
+          return np.random.choice(len(self.remaining_indices), size=num_new_imgs)
 
         uncertains = np.append(uncertains, loss)
 
@@ -118,29 +129,27 @@ class ActiveLearning:
   def get_model_accuracies(self):
     return self.model_accuracies
 
-  def evaluate_model(self):
+  def evaluate_model(self, curr_loop):
     device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
     thresholds = [0.5] # only checking one foreground probability threshold
     test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.val_dataset, self.model, thresholds, device, self.val_dataset)
-    return test_precision[0], test_recall[0], test_f_measure[0], test_blob_recall[0]
+    p, r, f, b = test_precision[0], test_recall[0], test_f_measure[0], test_blob_recall[0]
+  
+    # print(f'Metrics with {curr_loop} training images')
+    # print('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
+    # print('')
+    self.model_accuracies.append((curr_loop, (p, r, f, b)))
+    
+    logging.debug(f'Metrics with {curr_loop} training images')
+    logging.debug('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
+    logging.debug('')
 
   def run_loop(self, step_size):
     print("running loop")
     # device = 'mps' if torch.backends.mps.is_built() else 'cuda:0' if torch.cuda.is_available() else 'cpu'
     
     # training loop with acquisition function
-    for curr_loop in range(self.n_init, len(self.train_dataset), step_size):
-      # get current accuracy, recall, and other metrics
-      p, r, f, b = self.evaluate_model()
-      print(f'Metrics with {curr_loop} training images')
-      print('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
-      print('')
-      
-      logging.debug(f'Metrics with {curr_loop} training images')
-      logging.debug('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
-      logging.debug('')
-
-      self.model_accuracies.append((curr_loop, (p, r, f, b)))
+    for curr_loop in range(self.n_init + step_size, len(self.train_dataset) + 1, step_size):
       self.current_pass = curr_loop
       # run acquisition function
       new_training_indices = self.acquisition(step_size)
@@ -149,16 +158,35 @@ class ActiveLearning:
       self.train_indices = np.append(self.train_indices, self.remaining_indices[new_training_indices])
       self.remaining_indices = np.delete(self.remaining_indices, new_training_indices)      
 
-      self.model, self.stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
-      # break
+      # NOTE: Do I need to reinitialize the Unet model every time? Am I just continuing to fine-tune the weights, or am I truly retraining the model?
+      self.model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
       
-    p, r, f, b = self.evaluate_model()
-    print(f'Metrics with {curr_loop} training images')
-    print('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
-    print('')
+      self.training_losses[curr_loop] = stat_dict['Training']['F-measure']
+      self.validation_losses[curr_loop] = stat_dict['Validation']['F-measure']
+      
+      # print(self.validation_losses)
+
+      
+      # get current accuracy, recall, and other metrics
+      self.evaluate_model(curr_loop)
     
-    logging.debug(f'Metrics with {curr_loop} training images')
-    logging.debug('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
-    logging.debug('')
+    # self.model_accuracies.append((curr_loop, (p, r, f, b)))
     
-    self.model_accuracies.append((curr_loop, (p, r, f, b)))
+  def visualize_losses(self):
+    plt.figure()
+    plt.xlabel("num epochs")
+    plt.ylabel("f-measure")
+    
+    for num_images, data in self.training_losses.items():
+      plt.plot(self.epochs, data, label=f'{num_images} images')
+    plt.legend()
+    
+    plt.savefig(f"training_losses_{self.config['n_epochs']}_{self.lossType}.png")
+    
+    plt.clf()
+
+    for num_images, data in self.validation_losses.items():
+    plt.plot(self.epochs, data, label=f'{num_images} images')
+    plt.legend()
+    plt.savefig(f"validation_losses_{self.config['n_epochs']}_{self.lossType}.png")
+    
