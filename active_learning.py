@@ -4,11 +4,11 @@ from supervised_train import *
 import torch
 from matplotlib import pyplot as plt
 import logging
+from collections import Counter
 
 class ActiveLearning:
-  def __init__(self, model, n_init_per_view, n_train_per_view, datasets, config, loss_type):
+  def __init__(self, model, datasets, test_datasets, config, loss_type='baseline', per_view=False):
     self.model_accuracies = []
-    self.n_init = n_init_per_view * len(config['views'])
     self.config = config
     self.datasets = datasets
     self.model = model
@@ -17,6 +17,7 @@ class ActiveLearning:
     
     self.training_losses = {}
     self.validation_losses = {}
+    self.testing_losses = {}
     
     logging.basicConfig(filename=f"{config['log_path']}/{loss_type}.log",
                         filemode='a',
@@ -24,18 +25,52 @@ class ActiveLearning:
                         datefmt='%H:%M:%S',
                         level=logging.DEBUG)
 
-    training_datasets, validation_datasets = [], []
+    plt.set_loglevel (level = 'warning')
+    pil_logger = logging.getLogger('PIL')  
+    # override the logger logging level to INFO
+    pil_logger.setLevel(logging.INFO)
 
-    for d in datasets:
-      train_indices = np.random.choice(np.arange(len(d)), size=n_train_per_view, replace=False)
-      val_indices = np.array([i for i in range(len(d)) if i not in train_indices])
+    training_datasets, validation_datasets, testing_datasets = [], [], []
 
-      training_datasets.append((d, train_indices))
-      validation_datasets.append((d, val_indices))
+    if per_view:
+      self.n_init = config['train_details']['n_init_per_view'] * len(config['views'])
+      for d in datasets:
+        train_indices = np.random.choice(np.arange(len(d)), size=config['train_details']['n_train_per_view'], replace=False)
+        val_indices = np.array([i for i in range(len(d)) if i not in train_indices])
+
+        training_datasets.append((d, train_indices))
+        validation_datasets.append((d, val_indices))
+        
+      for d in test_datasets:
+        test_indices = np.arange(len(d))
+        testing_datasets.append((d, test_indices))
+    else:
+      self.n_init = config['train_details']['n_init']
+      
+      n_train_views = []
+      for i in range(4):
+        n_train_views.extend(50 * [i])
+        
+      np.random.shuffle(n_train_views)
+      c = Counter(n_train_views[:150]) # TODO: Need to change
+      
+      for idx, d in enumerate(datasets):
+        train_indices = np.random.choice(np.arange(len(d)), size=c[idx], replace=False)
+        val_indices = np.array([i for i in range(len(d)) if i not in train_indices])
+
+        training_datasets.append((d, train_indices))
+        validation_datasets.append((d, val_indices))
+        
+      for d in test_datasets:
+        test_indices = np.arange(len(d))
+        testing_datasets.append((d, test_indices))
+      
 
     self.train_dataset = BFSConcatDataset(training_datasets) # full training dataset, i.e. every image that the model will end up training
     self.val_dataset = BFSConcatDataset(validation_datasets) # full validation dataset; should stay the same throughout training process
+    self.test_dataset = BFSConcatDataset(testing_datasets) # full testing dataset; should stay the same throughout training process
 
+    # takes all indices from dataset 
     all_train_indices = np.arange(len(self.train_dataset)) # can't use train_indices because it's per view
     
     np.random.shuffle(all_train_indices)
@@ -90,10 +125,8 @@ class ActiveLearning:
         uncertains = np.append(uncertains, loss)
 
     # print("Uncertains: ", uncertains)
-    print("Uncertains: ", uncertains)
     new_training_indices = np.argpartition(uncertains, -num_new_imgs)[-num_new_imgs:] # indices of remaining indices with highest uncertainty rates
-    # print("Chosen uncertainties: ", new_training_indices)
-    print("Chosen uncertanties: ", new_training_indices)
+    print("Chosen uncertainties: ", new_training_indices)
     
     return new_training_indices
 
@@ -132,13 +165,13 @@ class ActiveLearning:
   def evaluate_model(self, curr_loop):
     device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
     thresholds = [0.5] # only checking one foreground probability threshold
-    test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.val_dataset, self.model, thresholds, device, self.val_dataset)
+    # val_precision, val_recall, val_f_measure, val_blob_recall = model_metrics(self.val_dataset, self.model, thresholds, device, self.val_dataset)
+    # p, r, f, b = val_precision[0], val_recall[0], val_f_measure[0], val_blob_recall[0]
+    
+    test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.test_dataset, self.model, thresholds, device, self.test_dataset)
     p, r, f, b = test_precision[0], test_recall[0], test_f_measure[0], test_blob_recall[0]
-  
-    # print(f'Metrics with {curr_loop} training images')
-    # print('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
-    # print('')
-    self.model_accuracies.append((curr_loop, (p, r, f, b)))
+
+    self.testing_losses[curr_loop] = f
     
     logging.debug(f'Metrics with {curr_loop} training images')
     logging.debug('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
@@ -158,7 +191,6 @@ class ActiveLearning:
       self.train_indices = np.append(self.train_indices, self.remaining_indices[new_training_indices])
       self.remaining_indices = np.delete(self.remaining_indices, new_training_indices)      
 
-      # NOTE: Do I need to reinitialize the Unet model every time? Am I just continuing to fine-tune the weights, or am I truly retraining the model?
       self.model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
       
       self.training_losses[curr_loop] = stat_dict['Training']['F-measure']
@@ -177,16 +209,34 @@ class ActiveLearning:
     plt.xlabel("num epochs")
     plt.ylabel("f-measure")
     
+    
     for num_images, data in self.training_losses.items():
       plt.plot(self.epochs, data, label=f'{num_images} images')
     plt.legend()
-    
+    plt.ylim(0, 1)
     plt.savefig(f"training_losses_{self.config['n_epochs']}_{self.lossType}.png")
+    plt.ylim(0.92, 1)
+    plt.savefig(f"training_losses_{self.config['n_epochs']}_{self.lossType}_zoom.png")
     
-    plt.clf()
-
-    for num_images, data in self.validation_losses.items():
-    plt.plot(self.epochs, data, label=f'{num_images} images')
+    plt.cla()
+    plt.xlabel("num epochs")
+    plt.ylabel("f-measure")
     plt.legend()
+  
+    for num_images, data in self.validation_losses.items():
+      plt.plot(self.epochs, data, label=f'{num_images} images')
+    plt.legend()
+    plt.ylim(0, 1)
     plt.savefig(f"validation_losses_{self.config['n_epochs']}_{self.lossType}.png")
+    plt.ylim(0.85, 1)
+    plt.savefig(f"validation_losses_{self.config['n_epochs']}_{self.lossType}_zoom.png")
+    
+    plt.cla()
+    plt.xlabel("num images")
+    plt.ylabel("f-measure")
+    
+    loop_data, test_accuracies = list(self.testing_losses.keys()), list(self.testing_losses.values())
+    plt.scatter(loop_data, test_accuracies, label=f'num images')
+    plt.legend()
+    plt.savefig(f"testing_losses_{self.config['n_epochs']}_{self.lossType}.png")
     

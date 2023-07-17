@@ -1,8 +1,15 @@
 import numpy as np
+from collections import Counter
 
-temp = [1, 5, 2, 5, 2, 1, 2,3 ,6 ,8 , 7, 2, 3]
+n_train_views = []
+for i in range(4):
+    n_train_views.extend(50 * [i])
 
-print(np.random.choice(temp, 4, replace=False))
+np.random.shuffle(n_train_views)
+c = Counter(n_train_views[:160])
+
+for idx, val in enumerate([1, 2, 3, 4]):
+    print(c[idx])
 
 quit()
 test = np.array([[1, 0, 1], [0, 0, 0], [0, 1, 1]])
