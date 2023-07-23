@@ -77,7 +77,7 @@ class BFSConcatDataset(Dataset):
         self.input_shape, self.output_shape = datasets[0][0].input_shape, datasets[0][0].output_shape 
         self.images = [d[0][i][0] for d in datasets for i in d[1]]
         self.targets = [d[0][i][1] for d in datasets for i in d[1]]
-
+        
     def get_blobs(self, target_image):
         '''
         Extract each connected component or "blob" from target_image. This enables

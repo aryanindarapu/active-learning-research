@@ -1,197 +1,126 @@
-01:23:41,783 root DEBUG Metrics with 10 training images
-01:23:41,783 root DEBUG Precision = 0.314 | Recall = 0.434 | F-measure = 0.365 | Blob recall = 0.371
-01:23:41,784 root DEBUG 
-01:27:53,543 root DEBUG Metrics with 10 training images
-01:27:53,544 root DEBUG Precision = 0.303 | Recall = 0.424 | F-measure = 0.353 | Blob recall = 0.345
-01:27:53,544 root DEBUG 
-01:51:47,682 root DEBUG Metrics with 11 training images
-01:51:47,682 root DEBUG Precision = 0.426 | Recall = 0.628 | F-measure = 0.507 | Blob recall = 0.562
-01:51:47,682 root DEBUG 
-01:54:46,953 root DEBUG Metrics with 20 training images
-01:54:46,953 root DEBUG Precision = 0.348 | Recall = 0.746 | F-measure = 0.474 | Blob recall = 0.736
-01:54:46,953 root DEBUG 
-02:16:37,7 root DEBUG Metrics with 12 training images
-02:16:37,7 root DEBUG Precision = 0.428 | Recall = 0.639 | F-measure = 0.513 | Blob recall = 0.562
-02:16:37,7 root DEBUG 
-02:35:06,56 root DEBUG Metrics with 30 training images
-02:35:06,56 root DEBUG Precision = 0.414 | Recall = 0.702 | F-measure = 0.521 | Blob recall = 0.703
-02:35:06,56 root DEBUG 
-02:42:38,263 root DEBUG Metrics with 13 training images
-02:42:38,263 root DEBUG Precision = 0.457 | Recall = 0.639 | F-measure = 0.533 | Blob recall = 0.593
-02:42:38,263 root DEBUG 
-03:09:35,87 root DEBUG Metrics with 14 training images
-03:09:35,87 root DEBUG Precision = 0.408 | Recall = 0.689 | F-measure = 0.512 | Blob recall = 0.639
-03:09:35,87 root DEBUG 
-03:24:40,65 root DEBUG Metrics with 40 training images
-03:24:40,65 root DEBUG Precision = 0.423 | Recall = 0.721 | F-measure = 0.533 | Blob recall = 0.753
-03:24:40,65 root DEBUG 
-03:37:38,506 root DEBUG Metrics with 15 training images
-03:37:38,506 root DEBUG Precision = 0.431 | Recall = 0.690 | F-measure = 0.530 | Blob recall = 0.616
-03:37:38,506 root DEBUG 
-04:06:27,830 root DEBUG Metrics with 16 training images
-04:06:27,830 root DEBUG Precision = 0.441 | Recall = 0.680 | F-measure = 0.535 | Blob recall = 0.596
-04:06:27,830 root DEBUG 
-04:23:44,934 root DEBUG Metrics with 50 training images
-04:23:44,934 root DEBUG Precision = 0.398 | Recall = 0.718 | F-measure = 0.512 | Blob recall = 0.759
-04:23:44,934 root DEBUG 
-04:36:30,979 root DEBUG Metrics with 17 training images
-04:36:30,979 root DEBUG Precision = 0.461 | Recall = 0.665 | F-measure = 0.544 | Blob recall = 0.583
-04:36:30,979 root DEBUG 
-05:07:17,680 root DEBUG Metrics with 18 training images
-05:07:17,680 root DEBUG Precision = 0.415 | Recall = 0.679 | F-measure = 0.515 | Blob recall = 0.574
-05:07:17,680 root DEBUG 
-05:32:14,288 root DEBUG Metrics with 60 training images
-05:32:14,288 root DEBUG Precision = 0.391 | Recall = 0.729 | F-measure = 0.509 | Blob recall = 0.759
-05:32:14,288 root DEBUG 
-05:39:19,958 root DEBUG Metrics with 19 training images
-05:39:19,958 root DEBUG Precision = 0.462 | Recall = 0.679 | F-measure = 0.550 | Blob recall = 0.608
-05:39:19,958 root DEBUG 
-06:12:03,936 root DEBUG Metrics with 20 training images
-06:12:03,936 root DEBUG Precision = 0.456 | Recall = 0.694 | F-measure = 0.550 | Blob recall = 0.608
-06:12:03,936 root DEBUG 
-06:46:03,68 root DEBUG Metrics with 21 training images
-06:46:03,68 root DEBUG Precision = 0.502 | Recall = 0.712 | F-measure = 0.589 | Blob recall = 0.678
-06:46:03,68 root DEBUG 
-06:50:16,629 root DEBUG Metrics with 70 training images
-06:50:16,629 root DEBUG Precision = 0.402 | Recall = 0.751 | F-measure = 0.524 | Blob recall = 0.776
-06:50:16,629 root DEBUG 
-07:20:48,828 root DEBUG Metrics with 22 training images
-07:20:48,828 root DEBUG Precision = 0.517 | Recall = 0.713 | F-measure = 0.599 | Blob recall = 0.672
-07:20:48,828 root DEBUG 
-07:56:48,828 root DEBUG Metrics with 23 training images
-07:56:48,828 root DEBUG Precision = 0.539 | Recall = 0.759 | F-measure = 0.630 | Blob recall = 0.726
-07:56:48,829 root DEBUG 
-08:17:49,508 root DEBUG Metrics with 80 training images
-08:17:49,508 root DEBUG Precision = 0.386 | Recall = 0.762 | F-measure = 0.513 | Blob recall = 0.774
-08:17:49,508 root DEBUG 
-08:33:27,173 root DEBUG Metrics with 24 training images
-08:33:27,173 root DEBUG Precision = 0.528 | Recall = 0.787 | F-measure = 0.632 | Blob recall = 0.749
-08:33:27,173 root DEBUG 
-09:11:24,441 root DEBUG Metrics with 25 training images
-09:11:24,442 root DEBUG Precision = 0.463 | Recall = 0.766 | F-measure = 0.577 | Blob recall = 0.756
-09:11:24,442 root DEBUG 
-09:49:57,889 root DEBUG Metrics with 26 training images
-09:49:57,889 root DEBUG Precision = 0.480 | Recall = 0.769 | F-measure = 0.591 | Blob recall = 0.746
-09:49:57,889 root DEBUG 
-09:54:57,881 root DEBUG Metrics with 90 training images
-09:54:57,882 root DEBUG Precision = 0.425 | Recall = 0.760 | F-measure = 0.546 | Blob recall = 0.776
-09:54:57,882 root DEBUG 
-10:29:51,319 root DEBUG Metrics with 27 training images
-10:29:51,319 root DEBUG Precision = 0.481 | Recall = 0.780 | F-measure = 0.595 | Blob recall = 0.756
-10:29:51,319 root DEBUG 
-11:10:20,461 root DEBUG Metrics with 28 training images
-11:10:20,461 root DEBUG Precision = 0.481 | Recall = 0.782 | F-measure = 0.595 | Blob recall = 0.787
-11:10:20,461 root DEBUG 
-11:41:40,755 root DEBUG Metrics with 100 training images
-11:41:40,755 root DEBUG Precision = 0.421 | Recall = 0.781 | F-measure = 0.547 | Blob recall = 0.795
-11:41:40,755 root DEBUG 
-12:43:50,857 root DEBUG Metrics with 110 training images
-12:43:50,857 root DEBUG Precision = 0.431 | Recall = 0.775 | F-measure = 0.554 | Blob recall = 0.787
-12:43:50,857 root DEBUG 
-13:48:42,174 root DEBUG Metrics with 120 training images
-13:48:42,174 root DEBUG Precision = 0.438 | Recall = 0.806 | F-measure = 0.567 | Blob recall = 0.806
-13:48:42,174 root DEBUG 
-14:57:59,294 root DEBUG Metrics with 130 training images
-14:57:59,294 root DEBUG Precision = 0.484 | Recall = 0.818 | F-measure = 0.608 | Blob recall = 0.820
-14:57:59,294 root DEBUG 
-16:12:00,869 root DEBUG Metrics with 140 training images
-16:12:00,869 root DEBUG Precision = 0.479 | Recall = 0.824 | F-measure = 0.606 | Blob recall = 0.820
-16:12:00,869 root DEBUG 
-17:30:39,462 root DEBUG Metrics with 150 training images
-17:30:39,462 root DEBUG Precision = 0.473 | Recall = 0.830 | F-measure = 0.603 | Blob recall = 0.827
-17:30:39,462 root DEBUG 
-17:30:39,477 matplotlib.legend WARNING No handles with labels found to put in legend.
-17:30:39,647 matplotlib.legend WARNING No handles with labels found to put in legend.
-17:30:39,799 matplotlib.legend WARNING No handles with labels found to put in legend.
-18:16:05,16 root DEBUG Metrics with 10 training images
-18:16:05,16 root DEBUG Precision = 0.337 | Recall = 0.509 | F-measure = 0.406 | Blob recall = 0.472
-18:16:05,16 root DEBUG 
-18:32:01,541 root DEBUG Metrics with 20 training images
-18:32:01,541 root DEBUG Precision = 0.356 | Recall = 0.723 | F-measure = 0.478 | Blob recall = 0.634
-18:32:01,541 root DEBUG 
-18:52:54,261 root DEBUG Metrics with 30 training images
-18:52:54,261 root DEBUG Precision = 0.422 | Recall = 0.649 | F-measure = 0.512 | Blob recall = 0.634
-18:52:54,261 root DEBUG 
-19:18:31,179 root DEBUG Metrics with 40 training images
-19:18:31,179 root DEBUG Precision = 0.434 | Recall = 0.721 | F-measure = 0.542 | Blob recall = 0.713
-19:18:31,179 root DEBUG 
-19:49:03,818 root DEBUG Metrics with 50 training images
-19:49:03,818 root DEBUG Precision = 0.412 | Recall = 0.694 | F-measure = 0.517 | Blob recall = 0.697
-19:49:03,818 root DEBUG 
-20:24:18,554 root DEBUG Metrics with 60 training images
-20:24:18,554 root DEBUG Precision = 0.442 | Recall = 0.726 | F-measure = 0.549 | Blob recall = 0.727
-20:24:18,554 root DEBUG 
-21:04:24,125 root DEBUG Metrics with 70 training images
-21:04:24,126 root DEBUG Precision = 0.434 | Recall = 0.761 | F-measure = 0.553 | Blob recall = 0.779
-21:04:24,126 root DEBUG 
-21:49:25,428 root DEBUG Metrics with 80 training images
-21:49:25,429 root DEBUG Precision = 0.420 | Recall = 0.768 | F-measure = 0.543 | Blob recall = 0.783
-21:49:25,429 root DEBUG 
-22:39:12,371 root DEBUG Metrics with 90 training images
-22:39:12,372 root DEBUG Precision = 0.431 | Recall = 0.767 | F-measure = 0.552 | Blob recall = 0.791
-22:39:12,372 root DEBUG 
-23:33:58,219 root DEBUG Metrics with 100 training images
-23:33:58,219 root DEBUG Precision = 0.419 | Recall = 0.770 | F-measure = 0.543 | Blob recall = 0.790
-23:33:58,219 root DEBUG 
-00:21:42,825 root DEBUG Metrics with 110 training images
-00:21:42,825 root DEBUG Precision = 0.421 | Recall = 0.804 | F-measure = 0.552 | Blob recall = 0.821
-00:21:42,825 root DEBUG 
-00:56:35,549 root DEBUG Metrics with 120 training images
-00:56:35,549 root DEBUG Precision = 0.434 | Recall = 0.811 | F-measure = 0.566 | Blob recall = 0.830
-00:56:35,549 root DEBUG 
-01:33:54,713 root DEBUG Metrics with 130 training images
-01:33:54,713 root DEBUG Precision = 0.459 | Recall = 0.804 | F-measure = 0.584 | Blob recall = 0.790
-01:33:54,713 root DEBUG 
-02:13:40,803 root DEBUG Metrics with 140 training images
-02:13:40,804 root DEBUG Precision = 0.447 | Recall = 0.828 | F-measure = 0.581 | Blob recall = 0.824
-02:13:40,804 root DEBUG 
-02:55:53,15 root DEBUG Metrics with 150 training images
-02:55:53,16 root DEBUG Precision = 0.445 | Recall = 0.833 | F-measure = 0.580 | Blob recall = 0.834
-02:55:53,16 root DEBUG 
-02:55:53,335 matplotlib.legend WARNING No handles with labels found to put in legend.
-07:39:52,723 root DEBUG Metrics with 10 training images
-07:39:52,723 root DEBUG Precision = 0.393 | Recall = 0.521 | F-measure = 0.448 | Blob recall = 0.474
-07:39:52,723 root DEBUG 
-07:49:48,373 root DEBUG Metrics with 20 training images
-07:49:48,374 root DEBUG Precision = 0.387 | Recall = 0.706 | F-measure = 0.500 | Blob recall = 0.632
-07:49:48,374 root DEBUG 
-08:02:10,929 root DEBUG Metrics with 30 training images
-08:02:10,930 root DEBUG Precision = 0.538 | Recall = 0.686 | F-measure = 0.603 | Blob recall = 0.685
-08:02:10,930 root DEBUG 
-08:17:02,289 root DEBUG Metrics with 40 training images
-08:17:02,289 root DEBUG Precision = 0.468 | Recall = 0.748 | F-measure = 0.576 | Blob recall = 0.783
-08:17:02,289 root DEBUG 
-08:34:24,756 root DEBUG Metrics with 50 training images
-08:34:24,756 root DEBUG Precision = 0.458 | Recall = 0.773 | F-measure = 0.575 | Blob recall = 0.817
-08:34:24,756 root DEBUG 
-08:54:16,247 root DEBUG Metrics with 60 training images
-08:54:16,247 root DEBUG Precision = 0.451 | Recall = 0.780 | F-measure = 0.572 | Blob recall = 0.817
-08:54:16,247 root DEBUG 
-09:16:37,627 root DEBUG Metrics with 70 training images
-09:16:37,627 root DEBUG Precision = 0.468 | Recall = 0.796 | F-measure = 0.589 | Blob recall = 0.837
-09:16:37,627 root DEBUG 
-09:41:30,865 root DEBUG Metrics with 80 training images
-09:41:30,865 root DEBUG Precision = 0.451 | Recall = 0.782 | F-measure = 0.572 | Blob recall = 0.813
-09:41:30,865 root DEBUG 
-10:08:53,469 root DEBUG Metrics with 90 training images
-10:08:53,470 root DEBUG Precision = 0.454 | Recall = 0.769 | F-measure = 0.571 | Blob recall = 0.788
-10:08:53,470 root DEBUG 
-10:38:49,223 root DEBUG Metrics with 100 training images
-10:38:49,223 root DEBUG Precision = 0.452 | Recall = 0.768 | F-measure = 0.569 | Blob recall = 0.778
-10:38:49,223 root DEBUG 
-11:11:12,901 root DEBUG Metrics with 110 training images
-11:11:12,901 root DEBUG Precision = 0.463 | Recall = 0.786 | F-measure = 0.583 | Blob recall = 0.790
-11:11:12,901 root DEBUG 
-11:46:04,804 root DEBUG Metrics with 120 training images
-11:46:04,804 root DEBUG Precision = 0.458 | Recall = 0.778 | F-measure = 0.576 | Blob recall = 0.770
-11:46:04,804 root DEBUG 
-12:23:22,792 root DEBUG Metrics with 130 training images
-12:23:22,793 root DEBUG Precision = 0.456 | Recall = 0.816 | F-measure = 0.585 | Blob recall = 0.808
-12:23:22,793 root DEBUG 
-13:03:07,512 root DEBUG Metrics with 140 training images
-13:03:07,512 root DEBUG Precision = 0.451 | Recall = 0.824 | F-measure = 0.583 | Blob recall = 0.808
-13:03:07,512 root DEBUG 
-13:45:18,31 root DEBUG Metrics with 150 training images
-13:45:18,32 root DEBUG Precision = 0.455 | Recall = 0.787 | F-measure = 0.577 | Blob recall = 0.780
-13:45:18,32 root DEBUG 
-13:45:18,359 matplotlib.legend WARNING No handles with labels found to put in legend.
+15:56:48,28 root DEBUG Metrics with 10 training images
+15:56:48,29 root DEBUG Precision = 0.225 | Recall = 0.599 | F-measure = 0.327 | Blob recall = 0.667
+15:56:48,29 root DEBUG Almond at Washington East: 5 images
+15:56:48,29 root DEBUG Almond at Washington South: 3 images
+15:56:48,29 root DEBUG Almond at Washington North: 2 images
+16:12:01,56 root DEBUG Metrics with 15 training images
+16:12:01,56 root DEBUG Precision = 0.399 | Recall = 0.699 | F-measure = 0.508 | Blob recall = 0.737
+16:12:01,56 root DEBUG Almond at Washington North: 1 images
+16:12:01,56 root DEBUG Almond at Washington East: 2 images
+16:12:01,56 root DEBUG Almond at Washington South: 2 images
+16:12:01,56 root DEBUG 
+16:29:24,507 root DEBUG Metrics with 20 training images
+16:29:24,508 root DEBUG Precision = 0.411 | Recall = 0.677 | F-measure = 0.511 | Blob recall = 0.724
+16:29:24,508 root DEBUG Almond at Washington East: 2 images
+16:29:24,508 root DEBUG Almond at Washington North: 2 images
+16:29:24,508 root DEBUG Almond at Washington South: 1 images
+16:29:24,508 root DEBUG 
+16:49:23,911 root DEBUG Metrics with 25 training images
+16:49:23,912 root DEBUG Precision = 0.411 | Recall = 0.657 | F-measure = 0.506 | Blob recall = 0.690
+16:49:23,912 root DEBUG Almond at Washington East: 2 images
+16:49:23,912 root DEBUG Almond at Washington North: 3 images
+16:49:23,912 root DEBUG 
+17:11:54,289 root DEBUG Metrics with 30 training images
+17:11:54,290 root DEBUG Precision = 0.512 | Recall = 0.603 | F-measure = 0.554 | Blob recall = 0.640
+17:11:54,290 root DEBUG Almond at Washington East: 4 images
+17:11:54,290 root DEBUG Almond at Washington North: 1 images
+17:11:54,290 root DEBUG 
+17:36:36,176 root DEBUG Metrics with 35 training images
+17:36:36,176 root DEBUG Precision = 0.509 | Recall = 0.673 | F-measure = 0.580 | Blob recall = 0.704
+17:36:36,176 root DEBUG Almond at Washington East: 1 images
+17:36:36,176 root DEBUG Almond at Washington North: 4 images
+17:36:36,177 root DEBUG 
+18:03:45,962 root DEBUG Metrics with 40 training images
+18:03:45,963 root DEBUG Precision = 0.451 | Recall = 0.699 | F-measure = 0.548 | Blob recall = 0.751
+18:03:45,963 root DEBUG Almond at Washington North: 3 images
+18:03:45,963 root DEBUG Almond at Washington East: 2 images
+18:03:45,963 root DEBUG 
+18:33:19,39 root DEBUG Metrics with 45 training images
+18:33:19,40 root DEBUG Precision = 0.450 | Recall = 0.688 | F-measure = 0.544 | Blob recall = 0.747
+18:33:19,40 root DEBUG Almond at Washington South: 1 images
+18:33:19,40 root DEBUG Almond at Washington North: 2 images
+18:33:19,40 root DEBUG Almond at Washington East: 2 images
+18:33:19,40 root DEBUG 
+19:05:18,656 root DEBUG Metrics with 50 training images
+19:05:18,658 root DEBUG Precision = 0.466 | Recall = 0.703 | F-measure = 0.561 | Blob recall = 0.763
+19:05:18,659 root DEBUG Almond at Washington East: 3 images
+19:05:18,659 root DEBUG Almond at Washington North: 2 images
+19:05:18,659 root DEBUG 
+19:39:42,141 root DEBUG Metrics with 55 training images
+19:39:42,144 root DEBUG Precision = 0.474 | Recall = 0.736 | F-measure = 0.577 | Blob recall = 0.790
+19:39:42,144 root DEBUG Almond at Washington North: 3 images
+19:39:42,144 root DEBUG Almond at Washington East: 2 images
+19:39:42,144 root DEBUG 
+20:16:33,718 root DEBUG Metrics with 60 training images
+20:16:33,721 root DEBUG Precision = 0.471 | Recall = 0.743 | F-measure = 0.576 | Blob recall = 0.772
+20:16:33,721 root DEBUG Almond at Washington North: 3 images
+20:16:33,721 root DEBUG Almond at Washington East: 2 images
+20:16:33,721 root DEBUG 
+20:56:01,888 root DEBUG Metrics with 65 training images
+20:56:01,890 root DEBUG Precision = 0.474 | Recall = 0.745 | F-measure = 0.580 | Blob recall = 0.793
+20:56:01,891 root DEBUG Almond at Washington North: 2 images
+20:56:01,891 root DEBUG Almond at Washington East: 3 images
+20:56:01,891 root DEBUG 
+21:37:28,297 root DEBUG Metrics with 70 training images
+21:37:28,300 root DEBUG Precision = 0.453 | Recall = 0.735 | F-measure = 0.561 | Blob recall = 0.748
+21:37:28,300 root DEBUG Almond at Washington North: 5 images
+21:37:28,300 root DEBUG 
+22:21:44,381 root DEBUG Metrics with 75 training images
+22:21:44,384 root DEBUG Precision = 0.416 | Recall = 0.753 | F-measure = 0.536 | Blob recall = 0.781
+22:21:44,384 root DEBUG Almond at Washington East: 3 images
+22:21:44,384 root DEBUG Almond at Washington North: 2 images
+22:21:44,384 root DEBUG 
+23:08:00,109 root DEBUG Metrics with 80 training images
+23:08:00,112 root DEBUG Precision = 0.430 | Recall = 0.784 | F-measure = 0.555 | Blob recall = 0.855
+23:08:00,112 root DEBUG Almond at Washington North: 5 images
+23:08:00,112 root DEBUG 
+23:56:56,752 root DEBUG Metrics with 85 training images
+23:56:56,755 root DEBUG Precision = 0.426 | Recall = 0.791 | F-measure = 0.554 | Blob recall = 0.829
+23:56:56,755 root DEBUG Almond at Washington North: 4 images
+23:56:56,755 root DEBUG Almond at Washington East: 1 images
+23:56:56,755 root DEBUG 
+00:48:09,597 root DEBUG Metrics with 90 training images
+00:48:09,600 root DEBUG Precision = 0.427 | Recall = 0.795 | F-measure = 0.555 | Blob recall = 0.811
+00:48:09,600 root DEBUG Almond at Washington East: 1 images
+00:48:09,601 root DEBUG Almond at Washington North: 4 images
+00:48:09,601 root DEBUG 
+01:42:01,462 root DEBUG Metrics with 95 training images
+01:42:01,465 root DEBUG Precision = 0.418 | Recall = 0.803 | F-measure = 0.550 | Blob recall = 0.827
+01:42:01,465 root DEBUG Almond at Washington North: 5 images
+01:42:01,465 root DEBUG 
+02:37:55,638 root DEBUG Metrics with 100 training images
+02:37:55,641 root DEBUG Precision = 0.419 | Recall = 0.820 | F-measure = 0.555 | Blob recall = 0.849
+02:37:55,641 root DEBUG Almond at Washington North: 5 images
+02:37:55,641 root DEBUG 
+03:37:34,98 root DEBUG Metrics with 105 training images
+03:37:34,101 root DEBUG Precision = 0.436 | Recall = 0.827 | F-measure = 0.571 | Blob recall = 0.856
+03:37:34,101 root DEBUG Almond at Washington North: 5 images
+03:37:34,101 root DEBUG 
+04:38:22,56 root DEBUG Metrics with 110 training images
+04:38:22,59 root DEBUG Precision = 0.424 | Recall = 0.832 | F-measure = 0.562 | Blob recall = 0.859
+04:38:22,59 root DEBUG Almond at Washington North: 5 images
+04:38:22,59 root DEBUG 
+05:41:44,534 root DEBUG Metrics with 115 training images
+05:41:44,541 root DEBUG Precision = 0.444 | Recall = 0.821 | F-measure = 0.576 | Blob recall = 0.856
+05:41:44,541 root DEBUG Almond at Washington North: 5 images
+05:41:44,541 root DEBUG 
+06:47:26,802 root DEBUG Metrics with 120 training images
+06:47:26,805 root DEBUG Precision = 0.431 | Recall = 0.836 | F-measure = 0.569 | Blob recall = 0.859
+06:47:26,805 root DEBUG Almond at Washington North: 5 images
+06:47:26,805 root DEBUG 
+07:56:49,772 root DEBUG Metrics with 125 training images
+07:56:49,775 root DEBUG Precision = 0.422 | Recall = 0.846 | F-measure = 0.563 | Blob recall = 0.866
+07:56:49,775 root DEBUG Almond at Washington North: 5 images
+07:56:49,775 root DEBUG 
+09:07:25,65 root DEBUG Metrics with 130 training images
+09:07:25,67 root DEBUG Precision = 0.417 | Recall = 0.852 | F-measure = 0.560 | Blob recall = 0.850
+09:07:25,67 root DEBUG Almond at Washington North: 5 images
+09:07:25,67 root DEBUG 
+10:20:54,158 root DEBUG Metrics with 135 training images
+10:20:54,158 root DEBUG Precision = 0.400 | Recall = 0.834 | F-measure = 0.541 | Blob recall = 0.840
+10:20:54,159 root DEBUG Almond at Washington North: 5 images
+10:20:54,159 root DEBUG 
+11:36:26,206 root DEBUG Metrics with 140 training images
+11:36:26,209 root DEBUG Precision = 0.390 | Recall = 0.840 | F-measure = 0.532 | Blob recall = 0.840
+11:36:26,209 root DEBUG Almond at Washington North: 5 images
+11:36:26,209 root DEBUG 

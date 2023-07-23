@@ -5,6 +5,7 @@ import torch
 from matplotlib import pyplot as plt
 import logging
 from collections import Counter
+import random
 
 class ActiveLearning:
   def __init__(self, model, datasets, test_datasets, config, loss_type='baseline', per_view=False):
@@ -26,7 +27,7 @@ class ActiveLearning:
                         level=logging.DEBUG)
 
     plt.set_loglevel (level = 'warning')
-    pil_logger = logging.getLogger('PIL')  
+    pil_logger = logging.getLogger('PIL')
     # override the logger logging level to INFO
     pil_logger.setLevel(logging.INFO)
 
@@ -47,12 +48,13 @@ class ActiveLearning:
     else:
       self.n_init = config['train_details']['n_init']
       
-      n_train_views = []
-      for i in range(4):
-        n_train_views.extend(50 * [i])
+      ##### Determine which images to homogenously get from dataset
+      self.n_train_views = []
+      for idx, d in enumerate(datasets):
+        self.n_train_views.extend(len(d) * [idx])
         
-      np.random.shuffle(n_train_views)
-      c = Counter(n_train_views[:150]) # TODO: Need to change
+      c = Counter(random.sample(self.n_train_views, len(self.n_train_views))[:config['train_details']['n_train']]) # determines how many images to include from each batch in the training set
+      #####
       
       for idx, d in enumerate(datasets):
         train_indices = np.random.choice(np.arange(len(d)), size=c[idx], replace=False)
@@ -76,12 +78,15 @@ class ActiveLearning:
     np.random.shuffle(all_train_indices)
     self.train_indices = all_train_indices[:self.n_init]
     self.remaining_indices = all_train_indices[self.n_init:]
-
     # train with first n_init images
     self.model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
     
     # get current accuracy, recall, and other metrics
     self.evaluate_model(self.n_init)
+    
+    c = Counter([self.n_train_views[i] for i in self.train_indices]) # determines how many images to include from each batch in the training set
+    for view in c:
+      logging.debug(f'{self.config["views"][view]}: {c[view]} images')
     
     self.training_losses[self.n_init] = stat_dict['Training']['F-measure']
     self.validation_losses[self.n_init] = stat_dict['Validation']['F-measure']
@@ -175,7 +180,6 @@ class ActiveLearning:
     
     logging.debug(f'Metrics with {curr_loop} training images')
     logging.debug('Precision = {:.3f} | Recall = {:.3f} | F-measure = {:.3f} | Blob recall = {:.3f}'.format(p, r, f, b))
-    logging.debug('')
 
   def run_loop(self, step_size):
     print("running loop")
@@ -186,21 +190,26 @@ class ActiveLearning:
       self.current_pass = curr_loop
       # run acquisition function
       new_training_indices = self.acquisition(step_size)
-    
+      
       # add new images to dataset and retrain
       self.train_indices = np.append(self.train_indices, self.remaining_indices[new_training_indices])
-      self.remaining_indices = np.delete(self.remaining_indices, new_training_indices)      
-
+      self.remaining_indices = np.delete(self.remaining_indices, new_training_indices)
+      
       self.model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
       
       self.training_losses[curr_loop] = stat_dict['Training']['F-measure']
       self.validation_losses[curr_loop] = stat_dict['Validation']['F-measure']
       
       # print(self.validation_losses)
-
-      
       # get current accuracy, recall, and other metrics
       self.evaluate_model(curr_loop)
+      
+      # Determines which views the selecting indices are from
+      c = Counter([self.n_train_views[i] for i in new_training_indices]) # determines how many images to include from each batch in the training set
+      for view in c:
+        logging.debug(f'{self.config["views"][view]}: {c[view]} images')
+        
+      logging.debug('')
     
     # self.model_accuracies.append((curr_loop, (p, r, f, b)))
     
@@ -221,7 +230,6 @@ class ActiveLearning:
     plt.cla()
     plt.xlabel("num epochs")
     plt.ylabel("f-measure")
-    plt.legend()
   
     for num_images, data in self.validation_losses.items():
       plt.plot(self.epochs, data, label=f'{num_images} images')

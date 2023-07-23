@@ -27,7 +27,7 @@ config = {
     'n_init_per_view': 20, 
     'n_train_per_view': 40,
     'n_init': 10,
-    'n_train': 160
+    'n_train': 140
   }
 }
 
@@ -64,16 +64,15 @@ for v in test_views:
                                          [v],
                                          config['input_shape'],
                                          config['output_shape']))
-    
+
 from active_learning import *
-n_epochs = [50, 100, 150, 200, 250, 300, 350, 400] # prob gonna stick to 350 epochs
 
 # set up model
 n_channels = 3 # RGB images
 model = UNet(n_channels)
 
 act = ActiveLearning(model=model, datasets=datasets, test_datasets=t_datasets, config=config, loss_type="baseline", per_view=False)
-accuracies = act.run_loop(10)
+accuracies = act.run_loop(5)
 act.visualize_losses()
 
 # act2 = ActiveLearning(model=model, n_init=20, n_train_per_view=40, datasets=datasets, config=config, loss_type="basicLossExtra")
