@@ -9,12 +9,13 @@ import random
 
 class ActiveLearning:
   def __init__(self, model, datasets, test_datasets, config, loss_type='baseline', per_view=False):
+    print(f"Current Loss Type: {loss_type}")
     self.model_accuracies = []
     self.config = config
     self.datasets = datasets
-    self.model = model
     self.filename = 0
     self.lossType = loss_type
+    self.model = model
     
     self.training_losses = {}
     self.validation_losses = {}
@@ -30,6 +31,8 @@ class ActiveLearning:
     pil_logger = logging.getLogger('PIL')
     # override the logger logging level to INFO
     pil_logger.setLevel(logging.INFO)
+    
+    logging.debug(f'========================================================================================================================')
 
     training_datasets, validation_datasets, testing_datasets = [], [], []
 
@@ -52,7 +55,7 @@ class ActiveLearning:
       self.n_train_views = []
       for idx, d in enumerate(datasets):
         self.n_train_views.extend(len(d) * [idx])
-        
+      
       c = Counter(random.sample(self.n_train_views, len(self.n_train_views))[:config['train_details']['n_train']]) # determines how many images to include from each batch in the training set
       #####
       
@@ -67,7 +70,6 @@ class ActiveLearning:
         test_indices = np.arange(len(d))
         testing_datasets.append((d, test_indices))
       
-
     self.train_dataset = BFSConcatDataset(training_datasets) # full training dataset, i.e. every image that the model will end up training
     self.val_dataset = BFSConcatDataset(validation_datasets) # full validation dataset; should stay the same throughout training process
     self.test_dataset = BFSConcatDataset(testing_datasets) # full testing dataset; should stay the same throughout training process
@@ -78,11 +80,13 @@ class ActiveLearning:
     np.random.shuffle(all_train_indices)
     self.train_indices = all_train_indices[:self.n_init]
     self.remaining_indices = all_train_indices[self.n_init:]
+    
+    # print(all_train_indices, self.train_indices, self.remaining_indices)
     # train with first n_init images
-    self.model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
+    out_model, stat_dict = train(model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
     
     # get current accuracy, recall, and other metrics
-    self.evaluate_model(self.n_init)
+    self.evaluate_model(out_model, self.n_init)
     
     c = Counter([self.n_train_views[i] for i in self.train_indices]) # determines how many images to include from each batch in the training set
     for view in c:
@@ -167,13 +171,13 @@ class ActiveLearning:
   def get_model_accuracies(self):
     return self.model_accuracies
 
-  def evaluate_model(self, curr_loop):
+  def evaluate_model(self, model, curr_loop):
     device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
     thresholds = [0.5] # only checking one foreground probability threshold
     # val_precision, val_recall, val_f_measure, val_blob_recall = model_metrics(self.val_dataset, self.model, thresholds, device, self.val_dataset)
     # p, r, f, b = val_precision[0], val_recall[0], val_f_measure[0], val_blob_recall[0]
     
-    test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.test_dataset, self.model, thresholds, device, self.test_dataset)
+    test_precision, test_recall, test_f_measure, test_blob_recall = model_metrics(self.test_dataset, model, thresholds, device, self.test_dataset)
     p, r, f, b = test_precision[0], test_recall[0], test_f_measure[0], test_blob_recall[0]
 
     self.testing_losses[curr_loop] = f
@@ -195,14 +199,16 @@ class ActiveLearning:
       self.train_indices = np.append(self.train_indices, self.remaining_indices[new_training_indices])
       self.remaining_indices = np.delete(self.remaining_indices, new_training_indices)
       
-      self.model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
+      # TODO: reinitialize model for each iteration
+      # make new class that fine tunes model rather than fully retrains
+      out_model, stat_dict = train(self.model, self.train_dataset_preprocess(), self.val_dataset, self.config, self.train_dataset)
       
       self.training_losses[curr_loop] = stat_dict['Training']['F-measure']
       self.validation_losses[curr_loop] = stat_dict['Validation']['F-measure']
       
       # print(self.validation_losses)
       # get current accuracy, recall, and other metrics
-      self.evaluate_model(curr_loop)
+      self.evaluate_model(out_model, curr_loop)
       
       # Determines which views the selecting indices are from
       c = Counter([self.n_train_views[i] for i in new_training_indices]) # determines how many images to include from each batch in the training set

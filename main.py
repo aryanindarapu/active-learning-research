@@ -6,7 +6,7 @@ from dataset import *
 from quantitative_results import *
 
 config = {
-  'seed': 310, # random seed
+  'seed': 14351, # random seed
   'input_shape': (240, 360), # size of input images (height, width)
   'output_shape': (240, 360), # size of output target
   'n_train': 40, # number of training images per view

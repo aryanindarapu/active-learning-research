@@ -1,159 +1,133 @@
-15:41:39,285 root DEBUG Metrics with 10 training images
-15:41:39,286 root DEBUG Precision = 0.319 | Recall = 0.000 | F-measure = 0.001 | Blob recall = 0.000
-15:41:39,286 root DEBUG Almond at Washington East: 5 images
-15:41:39,299 root DEBUG Almond at Washington South: 3 images
-15:41:39,299 root DEBUG Almond at Washington North: 2 images
-15:41:44,862 root DEBUG Metrics with 15 training images
-15:41:44,862 root DEBUG Precision = 0.578 | Recall = 0.029 | F-measure = 0.056 | Blob recall = 0.000
-15:41:44,862 root DEBUG Almond at Washington South: 2 images
-15:41:44,867 root DEBUG Almond at Washington East: 2 images
-15:41:44,867 root DEBUG Almond at Washington North: 1 images
-15:41:44,867 root DEBUG 
-15:41:50,975 root DEBUG Metrics with 20 training images
-15:41:50,975 root DEBUG Precision = 0.377 | Recall = 0.465 | F-measure = 0.417 | Blob recall = 0.420
-15:41:50,976 root DEBUG Almond at Washington North: 4 images
-15:41:50,989 root DEBUG Almond at Washington East: 1 images
-15:41:50,989 root DEBUG 
-15:41:57,785 root DEBUG Metrics with 25 training images
-15:41:57,785 root DEBUG Precision = 0.417 | Recall = 0.599 | F-measure = 0.492 | Blob recall = 0.596
-15:41:57,785 root DEBUG Almond at Washington East: 2 images
-15:41:57,800 root DEBUG Almond at Washington North: 3 images
-15:41:57,800 root DEBUG 
-15:42:05,245 root DEBUG Metrics with 30 training images
-15:42:05,246 root DEBUG Precision = 0.340 | Recall = 0.588 | F-measure = 0.431 | Blob recall = 0.555
-15:42:05,246 root DEBUG Almond at Washington North: 4 images
-15:42:05,259 root DEBUG Almond at Washington South: 1 images
-15:42:05,260 root DEBUG 
-15:42:13,477 root DEBUG Metrics with 35 training images
-15:42:13,477 root DEBUG Precision = 0.371 | Recall = 0.528 | F-measure = 0.436 | Blob recall = 0.502
-15:42:13,478 root DEBUG Almond at Washington East: 2 images
-15:42:13,491 root DEBUG Almond at Washington North: 1 images
-15:42:13,492 root DEBUG Almond at Washington South: 2 images
-15:42:13,492 root DEBUG 
-15:58:38,90 root DEBUG Metrics with 10 training images
-15:58:38,91 root DEBUG Precision = 0.264 | Recall = 0.605 | F-measure = 0.368 | Blob recall = 0.620
-15:58:38,91 root DEBUG Almond at Washington East: 5 images
-15:58:38,91 root DEBUG Almond at Washington South: 3 images
-15:58:38,91 root DEBUG Almond at Washington North: 2 images
-16:13:50,948 root DEBUG Metrics with 15 training images
-16:13:50,949 root DEBUG Precision = 0.346 | Recall = 0.632 | F-measure = 0.447 | Blob recall = 0.633
-16:13:50,949 root DEBUG Almond at Washington South: 2 images
-16:13:50,949 root DEBUG Almond at Washington East: 2 images
-16:13:50,949 root DEBUG Almond at Washington North: 1 images
-16:13:50,949 root DEBUG 
-16:31:12,836 root DEBUG Metrics with 20 training images
-16:31:12,837 root DEBUG Precision = 0.311 | Recall = 0.673 | F-measure = 0.426 | Blob recall = 0.712
-16:31:12,837 root DEBUG Almond at Washington North: 4 images
-16:31:12,837 root DEBUG Almond at Washington East: 1 images
-16:31:12,837 root DEBUG 
-16:51:11,460 root DEBUG Metrics with 25 training images
-16:51:11,461 root DEBUG Precision = 0.385 | Recall = 0.704 | F-measure = 0.498 | Blob recall = 0.735
-16:51:11,461 root DEBUG Almond at Washington East: 2 images
-16:51:11,461 root DEBUG Almond at Washington North: 3 images
-16:51:11,461 root DEBUG 
-17:13:40,708 root DEBUG Metrics with 30 training images
-17:13:40,709 root DEBUG Precision = 0.379 | Recall = 0.719 | F-measure = 0.497 | Blob recall = 0.751
-17:13:40,709 root DEBUG Almond at Washington North: 4 images
-17:13:40,709 root DEBUG Almond at Washington South: 1 images
-17:13:40,709 root DEBUG 
-17:38:20,786 root DEBUG Metrics with 35 training images
-17:38:20,787 root DEBUG Precision = 0.332 | Recall = 0.717 | F-measure = 0.454 | Blob recall = 0.753
-17:38:20,787 root DEBUG Almond at Washington East: 2 images
-17:38:20,787 root DEBUG Almond at Washington North: 1 images
-17:38:20,787 root DEBUG Almond at Washington South: 2 images
-17:38:20,787 root DEBUG 
-18:05:29,319 root DEBUG Metrics with 40 training images
-18:05:29,319 root DEBUG Precision = 0.332 | Recall = 0.702 | F-measure = 0.451 | Blob recall = 0.746
-18:05:29,319 root DEBUG Almond at Washington North: 4 images
-18:05:29,319 root DEBUG Almond at Washington East: 1 images
-18:05:29,320 root DEBUG 
-18:34:59,388 root DEBUG Metrics with 45 training images
-18:34:59,389 root DEBUG Precision = 0.350 | Recall = 0.711 | F-measure = 0.469 | Blob recall = 0.740
-18:34:59,389 root DEBUG Almond at Washington East: 4 images
-18:34:59,389 root DEBUG Almond at Washington North: 1 images
-18:34:59,389 root DEBUG 
-19:06:57,880 root DEBUG Metrics with 50 training images
-19:06:57,881 root DEBUG Precision = 0.379 | Recall = 0.756 | F-measure = 0.505 | Blob recall = 0.794
-19:06:57,881 root DEBUG Almond at Washington North: 3 images
-19:06:57,881 root DEBUG Almond at Washington East: 2 images
-19:06:57,881 root DEBUG 
-19:41:18,956 root DEBUG Metrics with 55 training images
-19:41:18,957 root DEBUG Precision = 0.423 | Recall = 0.779 | F-measure = 0.548 | Blob recall = 0.824
-19:41:18,957 root DEBUG Almond at Washington North: 2 images
-19:41:18,957 root DEBUG Almond at Washington East: 3 images
-19:41:18,957 root DEBUG 
-20:18:08,928 root DEBUG Metrics with 60 training images
-20:18:08,928 root DEBUG Precision = 0.411 | Recall = 0.785 | F-measure = 0.539 | Blob recall = 0.842
-20:18:08,928 root DEBUG Almond at Washington East: 3 images
-20:18:08,928 root DEBUG Almond at Washington North: 2 images
-20:18:08,928 root DEBUG 
-20:57:33,513 root DEBUG Metrics with 65 training images
-20:57:33,514 root DEBUG Precision = 0.416 | Recall = 0.764 | F-measure = 0.539 | Blob recall = 0.791
-20:57:33,514 root DEBUG Almond at Washington North: 2 images
-20:57:33,514 root DEBUG Almond at Washington East: 3 images
-20:57:33,514 root DEBUG 
-21:38:57,245 root DEBUG Metrics with 70 training images
-21:38:57,246 root DEBUG Precision = 0.402 | Recall = 0.804 | F-measure = 0.536 | Blob recall = 0.831
-21:38:57,246 root DEBUG Almond at Washington North: 5 images
-21:38:57,246 root DEBUG 
-22:23:08,473 root DEBUG Metrics with 75 training images
-22:23:08,473 root DEBUG Precision = 0.405 | Recall = 0.819 | F-measure = 0.542 | Blob recall = 0.822
-22:23:08,473 root DEBUG Almond at Washington North: 2 images
-22:23:08,473 root DEBUG Almond at Washington East: 3 images
-22:23:08,473 root DEBUG 
-23:09:21,940 root DEBUG Metrics with 80 training images
-23:09:21,941 root DEBUG Precision = 0.421 | Recall = 0.827 | F-measure = 0.558 | Blob recall = 0.828
-23:09:21,941 root DEBUG Almond at Washington North: 4 images
-23:09:21,941 root DEBUG Almond at Washington East: 1 images
-23:09:21,941 root DEBUG 
-23:58:16,698 root DEBUG Metrics with 85 training images
-23:58:16,699 root DEBUG Precision = 0.399 | Recall = 0.820 | F-measure = 0.537 | Blob recall = 0.828
-23:58:16,699 root DEBUG Almond at Washington East: 2 images
-23:58:16,699 root DEBUG Almond at Washington North: 3 images
-23:58:16,699 root DEBUG 
-00:49:24,221 root DEBUG Metrics with 90 training images
-00:49:24,222 root DEBUG Precision = 0.407 | Recall = 0.834 | F-measure = 0.547 | Blob recall = 0.846
-00:49:24,222 root DEBUG Almond at Washington North: 4 images
-00:49:24,222 root DEBUG Almond at Washington East: 1 images
-00:49:24,222 root DEBUG 
-01:43:13,320 root DEBUG Metrics with 95 training images
-01:43:13,321 root DEBUG Precision = 0.405 | Recall = 0.828 | F-measure = 0.543 | Blob recall = 0.844
-01:43:13,321 root DEBUG Almond at Washington North: 4 images
-01:43:13,321 root DEBUG Almond at Washington East: 1 images
-01:43:13,321 root DEBUG 
-02:39:07,316 root DEBUG Metrics with 100 training images
-02:39:07,316 root DEBUG Precision = 0.409 | Recall = 0.840 | F-measure = 0.550 | Blob recall = 0.854
-02:39:07,316 root DEBUG Almond at Washington North: 5 images
-02:39:07,316 root DEBUG 
-03:38:44,859 root DEBUG Metrics with 105 training images
-03:38:44,859 root DEBUG Precision = 0.407 | Recall = 0.837 | F-measure = 0.548 | Blob recall = 0.844
-03:38:44,859 root DEBUG Almond at Washington North: 5 images
-03:38:44,859 root DEBUG 
-04:39:29,329 root DEBUG Metrics with 110 training images
-04:39:29,329 root DEBUG Precision = 0.399 | Recall = 0.832 | F-measure = 0.539 | Blob recall = 0.831
-04:39:29,330 root DEBUG Almond at Washington North: 5 images
-04:39:29,330 root DEBUG 
-05:42:51,403 root DEBUG Metrics with 115 training images
-05:42:51,404 root DEBUG Precision = 0.393 | Recall = 0.827 | F-measure = 0.533 | Blob recall = 0.835
-05:42:51,404 root DEBUG Almond at Washington North: 5 images
-05:42:51,404 root DEBUG 
-06:48:27,725 root DEBUG Metrics with 120 training images
-06:48:27,726 root DEBUG Precision = 0.389 | Recall = 0.828 | F-measure = 0.529 | Blob recall = 0.834
-06:48:27,726 root DEBUG Almond at Washington North: 5 images
-06:48:27,726 root DEBUG 
-07:57:40,224 root DEBUG Metrics with 125 training images
-07:57:40,225 root DEBUG Precision = 0.472 | Recall = 0.824 | F-measure = 0.600 | Blob recall = 0.806
-07:57:40,225 root DEBUG Almond at Washington North: 5 images
-07:57:40,225 root DEBUG 
-09:08:14,248 root DEBUG Metrics with 130 training images
-09:08:14,249 root DEBUG Precision = 0.531 | Recall = 0.822 | F-measure = 0.645 | Blob recall = 0.825
-09:08:14,249 root DEBUG Almond at Washington North: 5 images
-09:08:14,249 root DEBUG 
-10:21:22,623 root DEBUG Metrics with 135 training images
-10:21:22,624 root DEBUG Precision = 0.488 | Recall = 0.839 | F-measure = 0.617 | Blob recall = 0.854
-10:21:22,624 root DEBUG Almond at Washington North: 5 images
-10:21:22,624 root DEBUG 
-11:36:35,983 root DEBUG Metrics with 140 training images
-11:36:35,983 root DEBUG Precision = 0.495 | Recall = 0.833 | F-measure = 0.621 | Blob recall = 0.821
-11:36:35,984 root DEBUG Almond at Washington North: 5 images
-11:36:35,984 root DEBUG 
+18:25:47,641 root DEBUG Metrics with 10 training images
+18:25:47,642 root DEBUG Precision = 0.432 | Recall = 0.613 | F-measure = 0.507 | Blob recall = 0.638
+18:25:47,642 root DEBUG Almond at Washington East: 5 images
+18:25:47,642 root DEBUG Almond at Washington South: 3 images
+18:25:47,642 root DEBUG Almond at Washington North: 2 images
+18:40:49,835 root DEBUG Metrics with 15 training images
+18:40:49,835 root DEBUG Precision = 0.478 | Recall = 0.610 | F-measure = 0.536 | Blob recall = 0.678
+18:40:49,835 root DEBUG Almond at Washington South: 2 images
+18:40:49,835 root DEBUG Almond at Washington East: 2 images
+18:40:49,835 root DEBUG Almond at Washington North: 1 images
+18:40:49,835 root DEBUG 
+19:00:27,944 root DEBUG Metrics with 20 training images
+19:00:27,945 root DEBUG Precision = 0.464 | Recall = 0.657 | F-measure = 0.544 | Blob recall = 0.715
+19:00:27,945 root DEBUG Almond at Washington North: 4 images
+19:00:27,945 root DEBUG Almond at Washington East: 1 images
+19:00:27,945 root DEBUG 
+19:21:39,654 root DEBUG Metrics with 25 training images
+19:21:39,654 root DEBUG Precision = 0.431 | Recall = 0.672 | F-measure = 0.525 | Blob recall = 0.722
+19:21:39,654 root DEBUG Almond at Washington East: 2 images
+19:21:39,654 root DEBUG Almond at Washington North: 3 images
+19:21:39,654 root DEBUG 
+19:43:53,385 root DEBUG Metrics with 30 training images
+19:43:53,386 root DEBUG Precision = 0.353 | Recall = 0.743 | F-measure = 0.478 | Blob recall = 0.778
+19:43:53,386 root DEBUG Almond at Washington North: 4 images
+19:43:53,386 root DEBUG Almond at Washington South: 1 images
+19:43:53,386 root DEBUG 
+20:08:50,398 root DEBUG Metrics with 35 training images
+20:08:50,399 root DEBUG Precision = 0.406 | Recall = 0.709 | F-measure = 0.516 | Blob recall = 0.782
+20:08:50,399 root DEBUG Almond at Washington East: 2 images
+20:08:50,399 root DEBUG Almond at Washington North: 1 images
+20:08:50,399 root DEBUG Almond at Washington South: 2 images
+20:08:50,399 root DEBUG 
+20:36:05,35 root DEBUG Metrics with 40 training images
+20:36:05,35 root DEBUG Precision = 0.443 | Recall = 0.685 | F-measure = 0.538 | Blob recall = 0.726
+20:36:05,35 root DEBUG Almond at Washington North: 4 images
+20:36:05,35 root DEBUG Almond at Washington East: 1 images
+20:36:05,35 root DEBUG 
+21:05:42,925 root DEBUG Metrics with 45 training images
+21:05:42,926 root DEBUG Precision = 0.430 | Recall = 0.720 | F-measure = 0.539 | Blob recall = 0.739
+21:05:42,926 root DEBUG Almond at Washington East: 4 images
+21:05:42,926 root DEBUG Almond at Washington North: 1 images
+21:05:42,926 root DEBUG 
+21:37:35,340 root DEBUG Metrics with 50 training images
+21:37:35,341 root DEBUG Precision = 0.367 | Recall = 0.736 | F-measure = 0.490 | Blob recall = 0.782
+21:37:35,341 root DEBUG Almond at Washington North: 3 images
+21:37:35,341 root DEBUG Almond at Washington East: 2 images
+21:37:35,341 root DEBUG 
+22:12:01,446 root DEBUG Metrics with 55 training images
+22:12:01,447 root DEBUG Precision = 0.400 | Recall = 0.726 | F-measure = 0.516 | Blob recall = 0.772
+22:12:01,447 root DEBUG Almond at Washington North: 2 images
+22:12:01,447 root DEBUG Almond at Washington East: 3 images
+22:12:01,447 root DEBUG 
+22:48:51,37 root DEBUG Metrics with 60 training images
+22:48:51,38 root DEBUG Precision = 0.400 | Recall = 0.723 | F-measure = 0.515 | Blob recall = 0.761
+22:48:51,38 root DEBUG Almond at Washington East: 3 images
+22:48:51,38 root DEBUG Almond at Washington North: 2 images
+22:48:51,38 root DEBUG 
+23:28:07,214 root DEBUG Metrics with 65 training images
+23:28:07,214 root DEBUG Precision = 0.399 | Recall = 0.718 | F-measure = 0.513 | Blob recall = 0.773
+23:28:07,215 root DEBUG Almond at Washington North: 2 images
+23:28:07,215 root DEBUG Almond at Washington East: 3 images
+23:28:07,215 root DEBUG 
+00:09:30,324 root DEBUG Metrics with 70 training images
+00:09:30,324 root DEBUG Precision = 0.421 | Recall = 0.697 | F-measure = 0.525 | Blob recall = 0.725
+00:09:30,324 root DEBUG Almond at Washington North: 5 images
+00:09:30,324 root DEBUG 
+00:53:22,785 root DEBUG Metrics with 75 training images
+00:53:22,785 root DEBUG Precision = 0.421 | Recall = 0.715 | F-measure = 0.530 | Blob recall = 0.758
+00:53:22,785 root DEBUG Almond at Washington North: 2 images
+00:53:22,785 root DEBUG Almond at Washington East: 3 images
+00:53:22,785 root DEBUG 
+01:39:39,371 root DEBUG Metrics with 80 training images
+01:39:39,372 root DEBUG Precision = 0.421 | Recall = 0.725 | F-measure = 0.533 | Blob recall = 0.768
+01:39:39,372 root DEBUG Almond at Washington North: 4 images
+01:39:39,372 root DEBUG Almond at Washington East: 1 images
+01:39:39,372 root DEBUG 
+02:28:32,92 root DEBUG Metrics with 85 training images
+02:28:32,93 root DEBUG Precision = 0.423 | Recall = 0.712 | F-measure = 0.530 | Blob recall = 0.773
+02:28:32,93 root DEBUG Almond at Washington East: 2 images
+02:28:32,93 root DEBUG Almond at Washington North: 3 images
+02:28:32,93 root DEBUG 
+03:19:45,814 root DEBUG Metrics with 90 training images
+03:19:45,815 root DEBUG Precision = 0.420 | Recall = 0.717 | F-measure = 0.530 | Blob recall = 0.790
+03:19:45,815 root DEBUG Almond at Washington North: 4 images
+03:19:45,815 root DEBUG Almond at Washington East: 1 images
+03:19:45,815 root DEBUG 
+04:13:17,733 root DEBUG Metrics with 95 training images
+04:13:17,734 root DEBUG Precision = 0.414 | Recall = 0.742 | F-measure = 0.532 | Blob recall = 0.800
+04:13:17,734 root DEBUG Almond at Washington North: 4 images
+04:13:17,734 root DEBUG Almond at Washington East: 1 images
+04:13:17,734 root DEBUG 
+05:09:20,385 root DEBUG Metrics with 100 training images
+05:09:20,386 root DEBUG Precision = 0.414 | Recall = 0.777 | F-measure = 0.540 | Blob recall = 0.845
+05:09:20,386 root DEBUG Almond at Washington North: 5 images
+05:09:20,386 root DEBUG 
+06:07:59,836 root DEBUG Metrics with 105 training images
+06:07:59,837 root DEBUG Precision = 0.396 | Recall = 0.759 | F-measure = 0.520 | Blob recall = 0.825
+06:07:59,837 root DEBUG Almond at Washington North: 5 images
+06:07:59,837 root DEBUG 
+07:08:54,188 root DEBUG Metrics with 110 training images
+07:08:54,189 root DEBUG Precision = 0.374 | Recall = 0.772 | F-measure = 0.504 | Blob recall = 0.830
+07:08:54,189 root DEBUG Almond at Washington North: 5 images
+07:08:54,189 root DEBUG 
+08:12:11,13 root DEBUG Metrics with 115 training images
+08:12:11,14 root DEBUG Precision = 0.385 | Recall = 0.761 | F-measure = 0.512 | Blob recall = 0.804
+08:12:11,14 root DEBUG Almond at Washington North: 5 images
+08:12:11,14 root DEBUG 
+09:17:51,865 root DEBUG Metrics with 120 training images
+09:17:51,865 root DEBUG Precision = 0.342 | Recall = 0.800 | F-measure = 0.479 | Blob recall = 0.833
+09:17:51,865 root DEBUG Almond at Washington North: 5 images
+09:17:51,865 root DEBUG 
+10:26:21,495 root DEBUG Metrics with 125 training images
+10:26:21,495 root DEBUG Precision = 0.353 | Recall = 0.786 | F-measure = 0.487 | Blob recall = 0.821
+10:26:21,496 root DEBUG Almond at Washington North: 5 images
+10:26:21,496 root DEBUG 
+11:37:13,580 root DEBUG Metrics with 130 training images
+11:37:13,580 root DEBUG Precision = 0.402 | Recall = 0.777 | F-measure = 0.529 | Blob recall = 0.794
+11:37:13,580 root DEBUG Almond at Washington North: 5 images
+11:37:13,580 root DEBUG 
+12:51:12,985 root DEBUG Metrics with 135 training images
+12:51:12,985 root DEBUG Precision = 0.408 | Recall = 0.802 | F-measure = 0.540 | Blob recall = 0.838
+12:51:12,985 root DEBUG Almond at Washington North: 5 images
+12:51:12,985 root DEBUG 
+14:06:37,791 root DEBUG Metrics with 140 training images
+14:06:37,792 root DEBUG Precision = 0.418 | Recall = 0.803 | F-measure = 0.550 | Blob recall = 0.833
+14:06:37,793 root DEBUG Almond at Washington North: 5 images
+14:06:37,793 root DEBUG 
+21:45:53,511 root DEBUG ========================================================================================================================
+21:46:46,143 root DEBUG ========================================================================================================================
+21:47:11,804 root DEBUG ========================================================================================================================
+22:02:05,342 root DEBUG ========================================================================================================================
+22:03:20,875 root DEBUG ========================================================================================================================
+22:06:07,199 root DEBUG ========================================================================================================================
